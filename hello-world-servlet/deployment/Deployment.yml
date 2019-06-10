@@ -33,7 +33,7 @@ spec:
       containers:
         - name: hello-world-servlet
         #TO DO, FIND DOCKER REGISTER INFO / DIRECTORY
-          image: ${docker_registry}/${docker_repo}/hello-world-servlet:${project_version}
+          image: ${docker_repo}/hello-world-servlet:${project_version}
           imagePullPolicy: Always
           resources:
             limits:
