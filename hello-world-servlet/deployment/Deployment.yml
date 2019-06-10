@@ -15,7 +15,7 @@ spec:
   template:
     metadata:
       labels:
-        app: disclosure
+        app: hello-world-servlet
         updateTimestamp: ${TIMESTAMP}
     spec:
       initContainers:
