@@ -49,7 +49,7 @@
 					<images>
 						<image>
 							<alias>hello-world-servlet</alias>
-							<name>${docker.push.registry}/${docker.repo}</name>
+							<name>${docker.repo}</name>
 							<build>
 								<!-- Specify a specific Dockerfile path -->
 								<dockerFileDir>${project.basedir}/docker/</dockerFileDir>
