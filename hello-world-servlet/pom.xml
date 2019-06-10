@@ -49,7 +49,7 @@
 					<images>
 						<image>
 							<alias>hello-world-servlet</alias>
-							<name>hello-world-servlet</name>
+							<name>alexsearing101/hello-world-servlet</name>
 							<build>
 								<!-- Specify a specific Dockerfile path -->
 								<dockerFileDir>${project.basedir}/docker/</dockerFileDir>
