@@ -1,2 +1,2 @@
 FROM tomcat
-ADD deploy /usr/local/tomcat/webapps
+COPY . /usr/local/tomcat/webapps
