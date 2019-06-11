@@ -4,7 +4,7 @@ metadata:
   name: hello-world-servlet
   labels:
     app: hello-world-servlet
-  namespace: ${target_environment}
+  namespace: default
 spec:
   type: NodePort
   selector:
