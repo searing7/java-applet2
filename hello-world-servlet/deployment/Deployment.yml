@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: hello-world-servlet
-        image: hello-world-servlet
+        image: alexsearing101/hello-world-servlet
         ports:
         - containerPort: 80
       imagePullSecrets:
