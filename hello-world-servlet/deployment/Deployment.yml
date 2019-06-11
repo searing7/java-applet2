@@ -20,3 +20,5 @@ spec:
         image: hello-world-servlet
         ports:
         - containerPort: 80
+      imagePullSecrets:
+        - name: alexcred
