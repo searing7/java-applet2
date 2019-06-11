@@ -1,2 +1,2 @@
 FROM tomcat
-COPY ./target/helloworld.war /usr/local/tomcat/webapps
+ADD maven/helloworld.war /usr/local/tomcat/webapps
