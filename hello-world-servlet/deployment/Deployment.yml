@@ -1,89 +1,22 @@
 kind: Deployment
 metadata:
   name: hello-world-servlet
-  namespace: ${target_environment}
+  namespace: default
   labels:
     app: hello-world-servlet
     updateTimestamp: ${TIMESTAMP}
 spec:
-  replicas: 3
-  strategy:
-    type: RollingUpdate
-    rollingUpdate:
-      maxSurge: 2
-      maxUnavailable: 0
+  selector:
+    matchLabels:
+      app: hello-world-servlet
+  replicas: 2
   template:
     metadata:
       labels:
         app: hello-world-servlet
-        updateTimestamp: ${TIMESTAMP}
     spec:
-      initContainers:
-      - name: vault-init-container
-        image: artifactory.transunion.com/docker-dev-local/vault-init:latest
-        imagePullPolicy: Always
-        envFrom:
-        - secretRef:
-            name: vault-services-properties
-        volumeMounts:
-        - name: data
-          mountPath: /opt/tomcat/conf
-        - name: certs
-          mountPath: /etc/tls
       containers:
-        - name: hello-world-servlet
-        #TO DO, FIND DOCKER REGISTER INFO / DIRECTORY
-          image: ${docker_repo}/hello-world-servlet:${project_version}
-          imagePullPolicy: Always
-          resources:
-            limits:
-              memory: 2Gi
-              cpu: 300m
-            requests:
-              memory: 1Gi
-              cpu: 100m
-          env:
-            - name: SPRING_PROFILES_ACTIVE
-              value: dev  
-            - name: JAVA_OPTS
-              value: -Xms1G -Xmx4G -XX:+UseG1GC -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap -XshowSettings:vm -XX:+UseStringDeduplication -XX:+UseStringCache
-          volumeMounts:
-          - mountPath: /opt/tomcat/conf/context.xml
-            subPath: context.xml
-            name: data         
-          lifecycle:
-            postStart:
-              exec:
-                command: ["/bin/sh", "-c", "echo Application Starting > /usr/share/message"]
-            preStop:
-              exec:
-                command: ["/opt/tomcat/bin/catalina.sh", "stop"] 
-          #livenessProbe:
-           # failureThreshold: 3
-            #httpGet:
-             # path: /disclosure/swagger-ui.html
-              #port: 8080
-           #   scheme: HTTP
-           # initialDelaySeconds: 240
-           # periodSeconds: 30
-           # successThreshold: 1
-           # timeoutSeconds: 5
-          #readinessProbe:
-          #  failureThreshold: 3
-          #  httpGet:
-          #    path: /disclosure/swagger-ui.html
-          #    port: 8080
-          #    scheme: HTTP
-          #  initialDelaySeconds: 240
-          #  periodSeconds: 30
-          #  successThreshold: 1
-          #  timeoutSeconds: 5            
-      volumes:
-        - name: data
-          emptyDir: {} 
-        - name: certs
-          secret:
-            secretName: consul
-      imagePullSecrets:
-        - name: registry-cred
-      restartPolicy: Always
+      - name: hello-world-servlet
+        image: hello-world-servlet
+        ports:
+        - containerPort: 80
